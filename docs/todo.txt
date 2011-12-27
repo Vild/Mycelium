@@ -1,0 +1,3 @@
+1. Make so a user connects then gets kick with a msg.
+2. Load a world 
+3. Spawn the user in the world
