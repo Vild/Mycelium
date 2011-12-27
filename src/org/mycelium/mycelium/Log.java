@@ -26,8 +26,9 @@ public class Log {
 	}
 	
 	private static Logger	log;
+	private static Log		current;
 	
-	public static void Init() throws Exception {
+	public Log() throws Exception {
 		log = Logger.getLogger("Mycelium");
 		LogFormatter format = new Log().new LogFormatter();
 		
@@ -43,16 +44,29 @@ public class Log {
 		log.addHandler(c);
 	}
 	
-	public static Logger getLog() {
-		if (log != null) return log;
+	public static Log getLog() {
+		if (current != null) return current;
 		
 		try {
-			Init();
+			Log.current = new Log();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Log failed to init. Aborting!");
 			System.exit(-1);
 		}
-		return log;
+		return current;
 	}
+	
+	public void Info(String msg) {
+		Log.log.log(Level.INFO, msg);
+	}
+	
+	public void Severe(String msg) {
+		Log.log.log(Level.SEVERE, msg);
+	}
+	
+	public void Warning(String msg) {
+		Log.log.log(Level.WARNING, msg);
+	}
+	
 }
