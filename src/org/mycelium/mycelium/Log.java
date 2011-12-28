@@ -2,35 +2,17 @@ package org.mycelium.mycelium;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class Log {
-	
-	public class LogFormatter extends Formatter {
-		
-		@Override
-		public String format(LogRecord record) {
-			StringBuffer buf = new StringBuffer();
-			buf.append(new java.util.Date());
-			buf.append(" [");
-			buf.append(record.getLevel());
-			buf.append("] ");
-			buf.append(formatMessage(record));
-			buf.append('\n');
-			return buf.toString();
-		}
-		
-	}
 	
 	private static Logger	log;
 	private static Log		current;
 	
 	public Log() throws Exception {
 		log = Logger.getLogger("Mycelium");
-		LogFormatter format = new Log().new LogFormatter();
+		LogFormatter format = new LogFormatter();
 		
 		log.setUseParentHandlers(false);
 		
