@@ -8,6 +8,11 @@ public class PacketKickDisconnect extends Packet {
 	
 	public String	Reason;
 	
+	public PacketKickDisconnect() {}
+	public PacketKickDisconnect(String Reason) {
+		this.Reason = Reason;
+	}
+	
 	@Override
 	public void Read(DataInputStream stream) throws IOException {
 		this.Reason = ReadString(stream, 100);

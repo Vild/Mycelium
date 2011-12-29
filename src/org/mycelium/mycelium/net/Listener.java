@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.mycelium.mycelium.Log;
 
@@ -56,7 +57,7 @@ public class Listener implements Runnable {
 		while(true) {
 			try {
 				Socket client = server.accept();
-				Clients.add(new Client(client)); 
+				Clients.add(new Client(client, new Random(System.nanoTime()))); 
 			} catch (IOException e) {}
 		}
 	}

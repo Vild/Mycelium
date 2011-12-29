@@ -17,6 +17,18 @@ public class PacketLogin extends Packet {
 	public int		WorldHeight;
 	public int		MaxPlayers;
 	
+	public PacketLogin() {}
+	
+	public PacketLogin(int EntityId, long MapSeed, int ServerMode, byte Dimension, byte Difficulty, int WorldHeight, int MaxPlayers) {
+		this.EntityId = EntityId;
+		this.MapSeed = MapSeed;
+		this.ServerMode = ServerMode;
+		this.Dimension = Dimension;
+		this.Difficulty = Difficulty;
+		this.WorldHeight = WorldHeight;
+		this.MaxPlayers = MaxPlayers;
+	}
+	
 	@Override
 	public void Read(DataInputStream stream) throws IOException {
 		this.ProtocalVersion = stream.readInt();

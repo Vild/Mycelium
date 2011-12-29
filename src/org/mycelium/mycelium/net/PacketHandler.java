@@ -16,30 +16,30 @@ import org.mycelium.mycelium.net.packet.PacketLogin;
 
 public class PacketHandler {
 	
-	private static final Log								log		= Log.getLog();
+	private static final Log					log	= Log.getLog();
 	
-	public static HashMap<Integer, Class<?>>	packets;
+	public static HashMap<Integer, Class<?>>	Packets;
 	
 	public static void Init() {
-		packets = new HashMap<Integer, Class<?>>(4);
+		Packets = new HashMap<Integer, Class<?>>();
 		log.Info("REG");
-		packets.put(0x00, PacketKeepAlive.class);
-		packets.put(0x01, PacketLogin.class);
-		packets.put(0x02, PacketHandshake.class);
-		packets.put(0xFE, PacketGetInfo.class);
-		packets.put(0xFF, PacketKickDisconnect.class);
+		Packets.put(0x00, PacketKeepAlive.class);
+		Packets.put(0x01, PacketLogin.class);
+		Packets.put(0x02, PacketHandshake.class);
+		Packets.put(0xFE, PacketGetInfo.class);
+		Packets.put(0xFF, PacketKickDisconnect.class);
 		log.Info("DONE");
 	}
 	
 	public static Packet GetPacket(Socket socket) throws IOException {
 		DataInputStream input = new DataInputStream(socket.getInputStream());
 		int id = input.readUnsignedByte();
-		if (!packets.containsKey(id)) {
+		if (!Packets.containsKey(id)) {
 			log.Severe("UNKNOWN PACKET ID:" + id);
 			return null;
 		}
 		try {
-			Packet a = (Packet) packets.get(id).newInstance();
+			Packet a = (Packet) Packets.get(id).newInstance();
 			a.Read(input);
 			return a;
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class PacketHandler {
 	}
 	
 	public static void SendPacket(Socket socket, Packet packet) throws IOException {
-		if (!packets.containsKey(packet.getId())){
+		if (!Packets.containsKey(packet.getId())) {
 			log.Severe("UNKNOWN PACKET ID:" + packet.getId());
 			return;
 		}
