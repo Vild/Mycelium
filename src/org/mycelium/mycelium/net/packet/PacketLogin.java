@@ -54,8 +54,8 @@ public class PacketLogin extends Packet {
 	}
 	
 	@Override
-	public int getId() {
-		return 0x01;
+	public byte getId() {
+		return (byte) 0x01;
 	}
 	
 }

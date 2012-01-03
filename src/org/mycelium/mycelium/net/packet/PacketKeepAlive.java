@@ -24,8 +24,8 @@ public class PacketKeepAlive extends Packet {
 	}
 	
 	@Override
-	public int getId() {
-		return 0x00;
+	public byte getId() {
+		return (byte) 0x00;
 	}
 	
 }

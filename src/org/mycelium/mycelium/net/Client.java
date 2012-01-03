@@ -127,10 +127,6 @@ public class Client {
 		}
 	}
 	
-	private boolean Connected() {
-		return this.socket.isConnected();
-	}
-	
 	public void RecivedPacket(PacketKeepAlive packet) {
 		if (packet.KeepAliveId == KeepAlive.Hash) KeepAlive.Hash = -1;
 	}
@@ -154,7 +150,13 @@ public class Client {
 	
 	public void RecivedPacket(PacketGetInfo packet) {
 		log.Info("Sending info about the server");
-		Kick("MOTD" + "\u00A7" + "0" + "\u00A7" + "10");
+		//Kick("MOTD" + "\u00A7" + "0" + "\u00A7" + "10");
+		try {
+			PacketHandler.SendPacket(socket, new PacketKickDisconnect("MOTD\u00A71\u00A710"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void RecivedPacket(PacketKickDisconnect packet) {

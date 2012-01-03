@@ -24,8 +24,8 @@ public class PacketKickDisconnect extends Packet {
 	}
 	
 	@Override
-	public int getId() {
-		return 0xFF;
+	public byte getId() {
+		return (byte) 0xFF;
 	}
 	
 }

@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public class PacketGetInfo extends Packet {
 	
-	public PacketGetInfo() {}
+	public PacketGetInfo() {
+	}
 	
 	@Override
 	public void Read(DataInputStream stream) throws IOException {
@@ -17,8 +18,8 @@ public class PacketGetInfo extends Packet {
 	}
 	
 	@Override
-	public int getId() {
-		return 0xFE;
+	public byte getId() {
+		return (byte) 0xFE;
 	}
 	
 }

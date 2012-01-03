@@ -4,14 +4,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.mycelium.mycelium.Log;
-
 public class PacketHandshake extends Packet {
 	
 	public String	Username;
 	public String	Hash;		// - no auth, + pass not working, random
 								
-	public PacketHandshake() {}
+	public PacketHandshake() {
+	}
 	
 	public PacketHandshake(String Hash) {
 		this.Hash = Hash;
@@ -29,8 +28,8 @@ public class PacketHandshake extends Packet {
 	}
 	
 	@Override
-	public int getId() {
-		return 0x02;
+	public byte getId() {
+		return (byte) 0x02;
 	}
 	
 }

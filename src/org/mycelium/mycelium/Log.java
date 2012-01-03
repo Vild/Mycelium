@@ -12,17 +12,15 @@ public class Log {
 	
 	public Log() throws Exception {
 		log = Logger.getLogger("Mycelium");
-		LogFormatter format = new LogFormatter();
-		
 		log.setUseParentHandlers(false);
 		
 		FileHandler f = new FileHandler("Mycelium.log", true);
 		f.setLevel(Level.ALL);
-		f.setFormatter(format);
+		f.setFormatter(new LogFormatter(true));
 		log.addHandler(f);
 		ConsoleHandler c = new ConsoleHandler();
 		c.setLevel(Level.ALL);
-		c.setFormatter(format);
+		c.setFormatter(new LogFormatter(false));
 		log.addHandler(c);
 	}
 	

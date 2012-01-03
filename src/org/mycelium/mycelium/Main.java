@@ -5,16 +5,25 @@ import org.mycelium.mycelium.net.PacketHandler;
 
 public class Main {
 	
-	private static Log	log	= Log.getLog();
+	private static Log		log	= Log.getLog();
+	private static Listener	server;
 	
 	public static void main(String[] args) {
 		log.Info("HI");
 		PacketHandler.Init();
 		
-		Listener server = new Listener(25565);
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			
+			@Override
+			public void run() {
+				server.Stop();
+			}
+		});
+		
+		server = new Listener(25565);
+		
 		server.Start();
 		server.WaitToEnd();
-		server.Stop();
+		
 	}
-	
 }

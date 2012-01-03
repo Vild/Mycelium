@@ -41,7 +41,8 @@ public class Listener implements Runnable {
 		this.thread.stop();
 		try {
 			server.close();
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
 	
 	public void WaitToEnd() {
@@ -54,11 +55,12 @@ public class Listener implements Runnable {
 	
 	@Override
 	public void run() {
-		while(true) {
+		while (true) {
 			try {
 				Socket client = server.accept();
-				Clients.add(new Client(client, new Random(System.nanoTime()))); 
-			} catch (IOException e) {}
+				Clients.add(new Client(client, new Random(System.nanoTime())));
+			} catch (IOException e) {
+			}
 		}
 	}
 }
