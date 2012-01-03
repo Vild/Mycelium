@@ -1,4 +1,4 @@
-package org.mycelium.mycelium.net.packet;
+package org.mycelium.mycelium.io.net.packet;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

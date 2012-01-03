@@ -1,4 +1,4 @@
-package org.mycelium.mycelium.net;
+package org.mycelium.mycelium.io.net;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,12 +7,12 @@ import java.net.Socket;
 import java.util.HashMap;
 
 import org.mycelium.mycelium.Log;
-import org.mycelium.mycelium.net.packet.Packet;
-import org.mycelium.mycelium.net.packet.PacketGetInfo;
-import org.mycelium.mycelium.net.packet.PacketKickDisconnect;
-import org.mycelium.mycelium.net.packet.PacketHandshake;
-import org.mycelium.mycelium.net.packet.PacketKeepAlive;
-import org.mycelium.mycelium.net.packet.PacketLogin;
+import org.mycelium.mycelium.io.net.packet.Packet;
+import org.mycelium.mycelium.io.net.packet.PacketGetInfo;
+import org.mycelium.mycelium.io.net.packet.PacketHandshake;
+import org.mycelium.mycelium.io.net.packet.PacketKeepAlive;
+import org.mycelium.mycelium.io.net.packet.PacketKickDisconnect;
+import org.mycelium.mycelium.io.net.packet.PacketLogin;
 
 public class PacketHandler {
 	

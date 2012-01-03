@@ -1,7 +1,7 @@
 package org.mycelium.mycelium;
 
-import org.mycelium.mycelium.net.Listener;
-import org.mycelium.mycelium.net.PacketHandler;
+import org.mycelium.mycelium.io.net.Listener;
+import org.mycelium.mycelium.io.net.PacketHandler;
 
 public class Main {
 	

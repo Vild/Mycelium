@@ -1,4 +1,4 @@
-package org.mycelium.mycelium.net;
+package org.mycelium.mycelium.io.net;
 
 import java.io.IOException;
 import java.net.ServerSocket;
