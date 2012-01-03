@@ -12,52 +12,14 @@ import org.mycelium.mycelium.net.packet.PacketKeepAlive;
 import org.mycelium.mycelium.net.packet.PacketKickDisconnect;
 import org.mycelium.mycelium.net.packet.PacketLogin;
 
-public class Client {
+public class Client extends PacketReceiver {
 	
 	public Log			log	= Log.getLog();
 	public Socket		socket;
 	public Random		random;
+	public int			KeepAlive_Hash;
 	
-	private keepAlive	KeepAlive;
 	private waitPacket	WaitPacket;
-	
-	class keepAlive extends Thread {
-		
-		private final Client	client;
-		public int				Hash	= -1;
-		
-		public keepAlive(Client client) {
-			this.client = client;
-		}
-		
-		@Override
-		public void run() {
-			try {
-				Thread.sleep(55000);
-			} catch (InterruptedException e) {
-			}
-			Hash = client.random.nextInt();
-			try {
-				PacketHandler.SendPacket(client.socket, new PacketKeepAlive(Hash));
-			} catch (IOException e) {
-			}
-			
-			int i = 0;
-			while (Hash != -1) {
-				if (i > 6000) {
-					client.Kick("Didn't answer on KeepAlive Packet");
-					return;
-				}
-				
-				try {
-					sleep(10);
-				} catch (InterruptedException e) {
-				}
-				i++;
-			}
-		}
-		
-	}
 	
 	class waitPacket extends Thread {
 		
@@ -71,42 +33,35 @@ public class Client {
 		public void run() {
 			while (true) {
 				try {
-					RecivedPacket(PacketHandler.GetPacket(client.socket));
+					client.HandlePacket(PacketHandler.GetPacket(client.socket));
 				} catch (IOException e) {
 				}
 				
 			}
-		}
-		
-		private void RecivedPacket(Packet packet) {
-			client.log.Info(packet.toString());
-			if (packet instanceof PacketKeepAlive)
-				client.RecivedPacket((PacketKeepAlive) packet);
-			else if (packet instanceof PacketLogin)
-				client.RecivedPacket((PacketLogin) packet);
-			else if (packet instanceof PacketHandshake)
-				client.RecivedPacket((PacketHandshake) packet);
-			else if (packet instanceof PacketGetInfo)
-				client.RecivedPacket((PacketGetInfo) packet);
-			else if (packet instanceof PacketKickDisconnect)
-				client.RecivedPacket((PacketKickDisconnect) packet);
 		}
 	}
 	
 	public Client(Socket socket, Random random) {
 		this.socket = socket;
 		this.random = random;
-		this.KeepAlive = new keepAlive(this);
 		this.WaitPacket = new waitPacket(this);
 		this.WaitPacket.start();
 	}
 	
+	public void SendPacket(Packet packet) throws IOException {
+		PacketHandler.SendPacket(socket, packet);
+	}
+	
+	public Packet GetPacket() throws IOException {
+		return PacketHandler.GetPacket(socket);
+	}
+	
 	public void Kick(String msg) {
-		//this.KeepAlive.interrupt();
+		// this.KeepAlive.interrupt();
 		this.WaitPacket.interrupt();
 		
 		try {
-			PacketHandler.SendPacket(socket, new PacketKickDisconnect(msg));
+			SendPacket(new PacketKickDisconnect(msg));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -118,7 +73,7 @@ public class Client {
 	}
 	
 	public void Close() {
-		//this.KeepAlive.interrupt();
+		// this.KeepAlive.interrupt();
 		this.WaitPacket.interrupt();
 		
 		try {
@@ -127,38 +82,44 @@ public class Client {
 		}
 	}
 	
+	@Override
 	public void RecivedPacket(PacketKeepAlive packet) {
-		if (packet.KeepAliveId == KeepAlive.Hash) KeepAlive.Hash = -1;
+		//TODO: Implement KeepAlive
+		if (packet.KeepAliveId == KeepAlive_Hash) KeepAlive_Hash = -1;
 	}
 	
+	@Override
 	public void RecivedPacket(PacketLogin packet) {
 		this.log.Info("Protocal v." + packet.ProtocalVersion + " Username: " + packet.Username);
 		Kick("WORKING :D");
 		return;
-//		this.KeepAlive.start();
+		// this.KeepAlive.start();
 	}
 	
+	@Override
 	public void RecivedPacket(PacketHandshake packet) {
 		this.log.Info(packet.Username + " connected to the server");
 		try {
-			PacketHandler.SendPacket(socket, new PacketHandshake("-"));//Integer.toHexString(random.nextInt())));
-			this.log.Info("Sendt Handshake");
+			SendPacket(new PacketHandshake("-"));// Integer.toHexString(random.nextInt())));
+			this.log.Info("Sent Handshake");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public void RecivedPacket(PacketGetInfo packet) {
 		log.Info("Sending info about the server");
-		//Kick("MOTD" + "\u00A7" + "0" + "\u00A7" + "10");
+		// Kick("MOTD" + "\u00A7" + "0" + "\u00A7" + "10");
 		try {
-			PacketHandler.SendPacket(socket, new PacketKickDisconnect("MOTD\u00A71\u00A710"));
+			SendPacket(new PacketKickDisconnect("Super Awsome Super Servor\u00A71337\u00A731337"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public void RecivedPacket(PacketKickDisconnect packet) {
 		this.Close();
 	}

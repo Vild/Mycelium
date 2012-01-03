@@ -28,6 +28,7 @@ public class Listener implements Runnable {
 		try {
 			server = new ServerSocket(port);
 			this.thread.start();
+			log.Info(" 1");
 		} catch (IOException e) {
 			log.Severe("[Mycelium] Failed to start a server listener");
 			e.printStackTrace();

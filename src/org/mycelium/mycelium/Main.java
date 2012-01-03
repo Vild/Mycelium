@@ -9,7 +9,7 @@ public class Main {
 	private static Listener	server;
 	
 	public static void main(String[] args) {
-		log.Info("HI");
+		log.Info("Mycelium is initializing...");
 		PacketHandler.Init();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -20,9 +20,11 @@ public class Main {
 			}
 		});
 		
+		log.Info("Starting the server...");
 		server = new Listener(25565);
 		
 		server.Start();
+		log.Info("The server is started.");
 		server.WaitToEnd();
 		
 	}

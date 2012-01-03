@@ -22,18 +22,17 @@ public class PacketHandler {
 	
 	public static void Init() {
 		Packets = new HashMap<Byte, Class<?>>();
-		log.Info("REG");
+		log.Info("Registration packets...");
 		Packets.put((byte) 0x00, PacketKeepAlive.class);
 		Packets.put((byte) 0x01, PacketLogin.class);
 		Packets.put((byte) 0x02, PacketHandshake.class);
 		Packets.put((byte) 0xFE, PacketGetInfo.class);
 		Packets.put((byte) 0xFF, PacketKickDisconnect.class);
-		log.Info("DONE");
+		log.Info("Registered " + Packets.size() + " packets.");
 	}
 	
 	public static Packet GetPacket(Socket socket) throws IOException {
 		DataInputStream input = new DataInputStream(socket.getInputStream());
-		//int id = input.readUnsignedByte();
 		byte id = input.readByte();
 		if (!Packets.containsKey(id)) {
 			log.Severe("UNKNOWN PACKET ID:" + id);
