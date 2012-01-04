@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Random;
 
 import org.mycelium.mycelium.Log;
+import org.mycelium.mycelium.Main;
 import org.mycelium.mycelium.io.net.packet.Packet;
 import org.mycelium.mycelium.io.net.packet.PacketGetInfo;
 import org.mycelium.mycelium.io.net.packet.PacketHandshake;
@@ -91,7 +92,7 @@ public class Client extends PacketReceiver {
 	@Override
 	public void RecivedPacket(PacketLogin packet) {
 		this.log.Info("Protocal v." + packet.ProtocalVersion + " Username: " + packet.Username);
-		Kick("WORKING :D");
+		Kick(Main.serverSettings.getKickMsg());
 		return;
 		// this.KeepAlive.start();
 	}
@@ -112,7 +113,7 @@ public class Client extends PacketReceiver {
 		log.Info("Sending info about the server");
 		// Kick("MOTD" + "\u00A7" + "0" + "\u00A7" + "10");
 		try {
-			SendPacket(new PacketKickDisconnect("Super Awsome Super Servor\u00A71337\u00A731337"));
+			SendPacket(new PacketKickDisconnect(Main.serverSettings.getMotd() + "§1337§31337"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
