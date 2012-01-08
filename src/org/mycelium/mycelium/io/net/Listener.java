@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.mycelium.mycelium.Log;
+import org.mycelium.mycelium.io.Log;
 
 public class Listener implements Runnable {
 	
@@ -52,6 +52,10 @@ public class Listener implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean IsRunning() {
+		return this.thread != null && this.thread.isAlive() && !this.thread.isInterrupted();
 	}
 	
 	@Override

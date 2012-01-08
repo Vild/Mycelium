@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
 
-import org.mycelium.mycelium.Log;
+import org.mycelium.mycelium.io.Log;
 import org.mycelium.mycelium.io.net.packet.Packet;
 import org.mycelium.mycelium.io.net.packet.PacketGetInfo;
 import org.mycelium.mycelium.io.net.packet.PacketHandshake;

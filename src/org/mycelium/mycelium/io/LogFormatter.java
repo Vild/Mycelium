@@ -1,4 +1,4 @@
-package org.mycelium.mycelium;
+package org.mycelium.mycelium.io;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,15 +17,15 @@ public class LogFormatter extends Formatter {
 	public String format(LogRecord record) {
 		StringBuffer buf = new StringBuffer();
 		
-		Date date = new Date();
+		Date date = new Date(record.getMillis());
 		
 		if (longdate)
 			buf.append(date);
 		else
-			buf.append(new SimpleDateFormat("hh:mm:ss").format(date));
+			buf.append(new SimpleDateFormat("HH:mm:ss").format(date));
 		
 		buf.append(" [");
-		buf.append(record.getLevel());
+		buf.append(record.getLevel().getLocalizedName().toUpperCase());
 		buf.append("] ");
 		buf.append(formatMessage(record));
 		buf.append('\n');
