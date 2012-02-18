@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TAG_LIST extends TAG {
 	
-	public ArrayList<TAG>	List;
+	public ArrayList<TAG>	List = new ArrayList<TAG>();
 	public byte				Type;
 	public int				Size;
 	

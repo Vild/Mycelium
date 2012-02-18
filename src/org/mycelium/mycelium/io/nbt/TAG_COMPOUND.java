@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TAG_COMPOUND extends TAG {
 	
-	public ArrayList<TAG>	List;
+	public ArrayList<TAG>	List = new ArrayList<TAG>();
 	
 	public TAG_COMPOUND() {
 		super("");
@@ -51,7 +51,7 @@ public class TAG_COMPOUND extends TAG {
 	
 	@Override
 	public byte getID() {
-		return 0x10;
+		return 0x0A;
 	}
 	
 }

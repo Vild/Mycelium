@@ -11,7 +11,7 @@ public class NBTtest {
 	
 	public static void main(String[] args) {
 		try {
-			NBT nbt = new NBT("test.nbt", true);
+			NBT nbt = new NBT("test2.nbt", false);
 			TAG_COMPOUND tags = nbt.GetTags();
 			nbt.Close();
 			for(TAG tag : tags.List) {

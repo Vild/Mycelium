@@ -32,7 +32,7 @@ public abstract class TAG {
 			case 0x07: return new TAG_BYTE_ARRAY(name); 
 			case 0x08: return new TAG_STRING(name); 
 			case 0x09: return new TAG_LIST(name); 
-			case 0x10: return new TAG_COMPOUND(name); 
+			case 0x0A: return new TAG_COMPOUND(name); 
 			default: return new TAG_END();
 		}
 	}
