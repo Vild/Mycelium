@@ -34,8 +34,14 @@ public class TAG_BYTE_ARRAY extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public byte[] getData() {
+		return Byte;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x07;
 	}
+
 	
 }

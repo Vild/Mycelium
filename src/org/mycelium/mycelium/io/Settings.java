@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-
 public class Settings {
 	
 	private final Properties	property;
@@ -39,7 +38,7 @@ public class Settings {
 			this.Save();
 		}
 		
-		return this.property.getProperty(key, defaultvalue);
+		return this.property.getProperty(key, defaultvalue).replaceAll("ยง", "ง");// Fix to remove ย before ง.
 	}
 	
 	public int getInt(String key, int defaultvalue) {

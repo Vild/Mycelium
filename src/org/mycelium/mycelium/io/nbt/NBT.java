@@ -12,46 +12,45 @@ import java.util.zip.GZIPOutputStream;
 
 public class NBT {
 	
-	File				file;
-	DataInputStream		istream;
-	DataOutputStream	ostream;
+	File	file;
+	boolean	gzip;
 	
 	public NBT() {
 	}
 	
 	public NBT(String path) throws IOException {
-		this.Load(path, true);
+		file = new File(path);
+		gzip = true;
 	}
 	
 	public NBT(String path, boolean gzip) throws IOException {
-		this.Load(path, gzip);
-	}
-	
-	public void Load(String path, boolean gzip) throws IOException {
 		file = new File(path);
-		istream = gzip ? new DataInputStream(new GZIPInputStream(new FileInputStream(file))) : new DataInputStream(new FileInputStream(file));
-		ostream = gzip ? new DataOutputStream(new GZIPOutputStream(new FileOutputStream(file))) : new DataOutputStream(new FileOutputStream(file));
-		
+		this.gzip = gzip;
 	}
 	
 	public void Close() throws IOException {
-		istream.close();
-		ostream.close();
 		file = null;
+		
 	}
 	
 	public TAG_COMPOUND GetTags() throws IOException, DataFormatException {
+		DataInputStream istream = gzip ? new DataInputStream(new GZIPInputStream(new FileInputStream(file))) : new DataInputStream(new FileInputStream(file));
 		if (istream.readByte() == 0x10) {
 			TAG_COMPOUND tags = new TAG_COMPOUND(istream.readUTF());
 			tags.Read(istream);
+			istream.close();
 			return tags;
 		} else {
+			istream.close();
 			throw new DataFormatException("Must start with a TAG_COMPOUND");
 		}
+		
 	}
 	
 	public void WriteTags(TAG_COMPOUND tags) throws IOException {
+		DataOutputStream ostream = gzip ? new DataOutputStream(new GZIPOutputStream(new FileOutputStream(file))) : new DataOutputStream(new FileOutputStream(file));
 		ostream.writeByte(0x10);
 		tags.Write(ostream);
+		ostream.close();
 	}
 }

@@ -7,13 +7,13 @@ import jline.Terminal;
 
 import org.mycelium.mycelium.io.Log;
 import org.mycelium.mycelium.io.ServerSettings;
-import org.mycelium.mycelium.io.net.Listener;
+import org.mycelium.mycelium.io.net.Server;
 import org.mycelium.mycelium.io.net.PacketHandler;
 
 public class Main {
 	
 	private static Log				log;
-	private static Listener			server;
+	private static Server			server;
 	
 	public static boolean			isDebug	= java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
 	public static ServerSettings	serverSettings;
@@ -21,21 +21,21 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		if (isDebug) new eric.Console();
+		// if (isDebug) new eric.Console();
 		
 		for (String arg : args) {
-			if (arg.toLowerCase().contains("-debug"))
-				isDebug = true;
+			if (arg.toLowerCase().contains("-debug")) isDebug = true;
 		}
 		
 		Terminal.setupTerminal();
+		
 		try {
 			reader = new ConsoleReader();
 		} catch (IOException e) {
 			log.Severe("Failed to make an instante of jline.ConsoleReader, aborting!");
 			System.exit(-700);
 		}
-
+		
 		log = Log.getLog();
 		log.Info("Mycelium is initializing...");
 		PacketHandler.Init();
@@ -51,7 +51,7 @@ public class Main {
 		});
 		
 		log.Info("Starting the server...");
-		server = new Listener(serverSettings.getPort());
+		server = new Server(serverSettings.getPort());
 		server.Start();
 		commandline();
 	}
@@ -65,9 +65,12 @@ public class Main {
 			try {
 				command = reader.readLine(">", null);
 				if (command != null) {
-					if (command.trim().equalsIgnoreCase("help"))
+					command = command.trim();
+					if (command.equalsIgnoreCase("help"))
 						log.Info("Help - help menu :P\nStop - stops the server");
-					else if (command.trim().equalsIgnoreCase("stop")) {
+					else if (command.equalsIgnoreCase("reload"))
+						serverSettings = new ServerSettings();
+					else if (command.equalsIgnoreCase("stop")) {
 						server.Stop();
 						return;
 					}

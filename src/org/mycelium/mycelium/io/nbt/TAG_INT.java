@@ -33,7 +33,12 @@ public class TAG_INT extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Integer getData() {
+		return Int;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x03;
 	}
 	

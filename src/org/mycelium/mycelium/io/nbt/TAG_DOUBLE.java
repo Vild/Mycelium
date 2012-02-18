@@ -33,7 +33,12 @@ public class TAG_DOUBLE extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Double getData() {
+		return Double;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x06;
 	}
 	

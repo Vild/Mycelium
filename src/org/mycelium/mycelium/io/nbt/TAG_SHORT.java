@@ -33,7 +33,12 @@ public class TAG_SHORT extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Short getData() {
+		return Short;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x02;
 	}
 	

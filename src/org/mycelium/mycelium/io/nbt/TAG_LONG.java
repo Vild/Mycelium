@@ -33,7 +33,12 @@ public class TAG_LONG extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Long getData() {
+		return Long;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x04;
 	}
 	

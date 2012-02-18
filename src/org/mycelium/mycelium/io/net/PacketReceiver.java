@@ -28,22 +28,22 @@ public class PacketReceiver {
 	}
 	
 	public void RecivedPacket(PacketKeepAlive packet) {
-		RecivedPacket((Packet)packet);
+		RecivedPacket((Packet) packet);
 	}
 	
 	public void RecivedPacket(PacketLogin packet) {
-		RecivedPacket((Packet)packet);
+		RecivedPacket((Packet) packet);
 	}
 	
 	public void RecivedPacket(PacketHandshake packet) {
-		RecivedPacket((Packet)packet);
+		RecivedPacket((Packet) packet);
 	}
 	
 	public void RecivedPacket(PacketGetInfo packet) {
-		RecivedPacket((Packet)packet);
+		RecivedPacket((Packet) packet);
 	}
 	
 	public void RecivedPacket(PacketKickDisconnect packet) {
-		RecivedPacket((Packet)packet);
+		RecivedPacket((Packet) packet);
 	}
 }

@@ -3,30 +3,31 @@ package org.mycelium.mycelium.io.net;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.mycelium.mycelium.io.Log;
 
-public class Listener implements Runnable {
+public class Server implements Runnable {
 	
-	private Log					log	= Log.getLog();
+	private Log								log		= Log.getLog();
 	
-	private final int			port;
-	private ServerSocket		server;
-	private Thread				thread;
+	private final int						port;
+	private ServerSocket					server;
+	private Thread							thread;
 	
-	public ArrayList<Client>	Clients;
+	public final static ArrayList<Client>	Clients	= new ArrayList<Client>();
 	
-	public Listener(int port) {
+	public Server(int port) {
 		this.port = port;
 		this.thread = new Thread(this, "Server Listener");
-		this.Clients = new ArrayList<Client>();
 	}
 	
 	public void Start() {
 		try {
 			server = new ServerSocket(port);
+			server.setSoTimeout(1000);
 			this.thread.start();
 			log.Info("The server is started on port " + port + ".");
 		} catch (IOException e) {
@@ -37,9 +38,7 @@ public class Listener implements Runnable {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void Stop() {
-		this.thread.stop();
 		try {
 			server.close();
 		} catch (IOException e) {
@@ -61,6 +60,8 @@ public class Listener implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
+			if (server == null || server.isClosed()) return;
+			
 			try {
 				Socket client = server.accept();
 				Clients.add(new Client(client, new Random(System.nanoTime())));

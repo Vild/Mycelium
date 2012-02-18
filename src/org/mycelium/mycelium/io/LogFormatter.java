@@ -7,7 +7,7 @@ import java.util.logging.LogRecord;
 
 public class LogFormatter extends Formatter {
 	
-	private boolean longdate;
+	private boolean	longdate;
 	
 	public LogFormatter(boolean longdate) {
 		this.longdate = longdate;

@@ -33,7 +33,12 @@ public class TAG_FLOAT extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Float getData() {
+		return Float;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x05;
 	}
 	

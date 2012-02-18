@@ -32,7 +32,12 @@ public class TAG_BYTE extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public Byte getData() {
+		return Byte;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x01;
 	}
 	

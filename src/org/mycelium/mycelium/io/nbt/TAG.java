@@ -16,7 +16,9 @@ public abstract class TAG {
 	
 	public abstract void Write(DataOutputStream stream) throws IOException;
 	
-	public abstract byte GetId();
+	public abstract Object getData();
+	
+	public abstract byte getID();
 
 	public static TAG createTag(byte type, String name) {
 		switch(type) {

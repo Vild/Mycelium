@@ -85,13 +85,13 @@ public class Client extends PacketReceiver {
 	
 	@Override
 	public void RecivedPacket(PacketKeepAlive packet) {
-		//TODO: Implement KeepAlive
+		// TODO: Implement KeepAlive
 		if (packet.KeepAliveId == KeepAlive_Hash) KeepAlive_Hash = -1;
 	}
 	
 	@Override
 	public void RecivedPacket(PacketLogin packet) {
-		this.log.Info("Protocal v." + packet.ProtocalVersion + " Username: " + packet.Username);
+		this.log.Info("Protocal v." + packet.ProtocalVersion + " Username: " + packet.Username + " Kick msg: " + Main.serverSettings.getKickMsg());
 		Kick(Main.serverSettings.getKickMsg());
 		return;
 		// this.KeepAlive.start();

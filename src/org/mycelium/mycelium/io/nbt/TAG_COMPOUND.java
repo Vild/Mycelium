@@ -26,25 +26,31 @@ public class TAG_COMPOUND extends TAG {
 	public void Read(DataInputStream stream) throws IOException {
 		this.List.clear();
 		byte id;
-		while ((id = stream.readByte()) != 0) {
+		while (true) {
+			id = stream.readByte();
 			TAG tag = TAG.createTag(id, stream.readUTF());
 			tag.Read(stream);
 			this.List.add(tag);
+			if (id == 0) break;
 		}
 	}
 	
 	@Override
 	public void Write(DataOutputStream stream) throws IOException {
 		for (TAG tag : this.List) {
-			stream.writeByte(tag.GetId());
+			stream.writeByte(tag.getID());
 			stream.writeUTF(tag.name);
 			tag.Write(stream);
 		}
-		stream.writeByte(0);
 	}
 	
 	@Override
-	public byte GetId() {
+	public ArrayList<TAG> getData() {
+		return List;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x10;
 	}
 	

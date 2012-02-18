@@ -23,7 +23,12 @@ public class TAG_END extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public String getData() {
+		return "null";
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x00;
 	}
 	

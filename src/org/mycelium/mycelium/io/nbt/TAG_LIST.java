@@ -51,7 +51,12 @@ public class TAG_LIST extends TAG {
 	}
 	
 	@Override
-	public byte GetId() {
+	public ArrayList<TAG> getData() {
+		return List;
+	}
+	
+	@Override
+	public byte getID() {
 		return 0x09;
 	}
 	
