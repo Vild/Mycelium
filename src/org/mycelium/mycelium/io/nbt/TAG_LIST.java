@@ -32,7 +32,7 @@ public class TAG_LIST extends TAG {
 		this.Type = stream.readByte();
 		this.Size = stream.readInt();
 		
-		for (int i = 0; i < Size; i++) {
+		for (int i = 0; i < this.Size; i++) {
 			TAG tag = TAG.createTag(this.Type, "");
 			tag.Read(stream);
 			this.List.add(tag);
@@ -44,6 +44,10 @@ public class TAG_LIST extends TAG {
 		stream.writeByte(this.Type);
 		stream.writeInt(this.Size);
 		
+		for (int i = 0; i < this.Size; i++) {
+			TAG tag = this.List.get(i);
+			tag.Write(stream);
+		}
 	}
 	
 	@Override
