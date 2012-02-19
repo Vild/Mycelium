@@ -35,9 +35,7 @@ public class NBT {
 	
 	public TAG_COMPOUND GetTags() throws IOException, DataFormatException {
 		DataInputStream istream = gzip ? new DataInputStream(new GZIPInputStream(new FileInputStream(file))) : new DataInputStream(new FileInputStream(file));
-		byte a = istream.readByte();
-		System.out.println(a);
-		if (a == 0x0A) {
+		if (istream.readByte() == 0x0A) {
 			TAG_COMPOUND tags = new TAG_COMPOUND(istream.readUTF());
 			tags.Read(istream);
 			istream.close();
@@ -51,7 +49,7 @@ public class NBT {
 	
 	public void WriteTags(TAG_COMPOUND tags) throws IOException {
 		DataOutputStream ostream = gzip ? new DataOutputStream(new GZIPOutputStream(new FileOutputStream(file))) : new DataOutputStream(new FileOutputStream(file));
-		ostream.writeByte(0x10);
+		ostream.writeByte(0xA);
 		tags.Write(ostream);
 		ostream.close();
 	}

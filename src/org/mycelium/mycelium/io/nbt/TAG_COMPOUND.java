@@ -28,7 +28,11 @@ public class TAG_COMPOUND extends TAG {
 		byte id;
 		while (true) {
 			id = stream.readByte();
-			TAG tag = TAG.createTag(id, stream.readUTF());
+			TAG tag;
+			if (id == 0)
+				tag = TAG.createTag(id, "");
+			else 
+				tag = TAG.createTag(id, stream.readUTF());
 			tag.Read(stream);
 			this.List.add(tag);
 			if (id == 0) break;

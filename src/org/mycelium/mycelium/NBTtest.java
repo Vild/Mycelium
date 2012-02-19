@@ -10,24 +10,30 @@ import org.mycelium.mycelium.io.nbt.TAG_COMPOUND;
 public class NBTtest {
 	
 	public static void main(String[] args) {
+		a("test.nbt", true);
+		a("test2.nbt", false);
+		
+	}
+	
+	public static void a(String b, boolean c) {
 		try {
-			NBT nbt = new NBT("test2.nbt", false);
+			NBT nbt = new NBT(b, c);
 			TAG_COMPOUND tags = nbt.GetTags();
 			nbt.Close();
 			for(TAG tag : tags.List) {
 				switch(tag.getID()) {
-					case 0x00: System.out.print("TAG_END"); 
-					case 0x01: System.out.print("TAG_BYTE");
-					case 0x02: System.out.print("TAG_SHORT"); 
-					case 0x03: System.out.print("TAG_INT");
-					case 0x04: System.out.print("TAG_LONG");
-					case 0x05: System.out.print("TAG_FLOAT"); 
-					case 0x06: System.out.print("TAG_DOUBLE");
-					case 0x07: System.out.print("TAG_BYTE_ARRAY"); 
-					case 0x08: System.out.print("TAG_STRING"); 
-					case 0x09: System.out.print("TAG_LIST");
-					case 0x10: System.out.print("TAG_COMPOUND"); 
-					default: System.out.print("TAG_???");
+					case 0x00: System.out.print("TAG_END"); break;
+					case 0x01: System.out.print("TAG_BYTE"); break;
+					case 0x02: System.out.print("TAG_SHORT");  break;
+					case 0x03: System.out.print("TAG_INT"); break;
+					case 0x04: System.out.print("TAG_LONG"); break;
+					case 0x05: System.out.print("TAG_FLOAT"); break;
+					case 0x06: System.out.print("TAG_DOUBLE"); break;
+					case 0x07: System.out.print("TAG_BYTE_ARRAY"); break;
+					case 0x08: System.out.print("TAG_STRING"); break;
+					case 0x09: System.out.print("TAG_LIST"); break;
+					case 0x10: System.out.print("TAG_COMPOUND"); break;
+					default: System.out.print("TAG_???"); break;
 				}
 				System.out.println(" Data: " + tag.getData());
 			}
@@ -35,7 +41,7 @@ public class NBTtest {
 		} catch (IOException | DataFormatException e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
 	
 }
