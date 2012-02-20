@@ -4,8 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-
 public class TAG_INT_ARRAY extends TAG {
+	
 	public int[]	Int;
 	
 	public TAG_INT_ARRAY() {
@@ -22,15 +22,18 @@ public class TAG_INT_ARRAY extends TAG {
 	}
 	
 	@Override
-	public void Read(DataInputStream stream) throws IOException { //TODO: Add Read to TAG_INT_ARRAY
-		//this.Int = new int[stream.readInt()];
-		//stream.read(this.Int);
+	public void Read(DataInputStream stream) throws IOException {
+		int length = stream.readInt();
+		Int = new int[length];
+		for (int i = 0; i < length; i++)
+			Int[i] = stream.readInt();
 	}
-		
+	
 	@Override
-	public void Write(DataOutputStream stream) throws IOException { //TODO: Add Write to TAG_INT_ARRAY
-		//stream.writeInt(this.Int.length);
-		//stream.write(this.Int);
+	public void Write(DataOutputStream stream) throws IOException {
+		stream.writeInt(Int.length);
+		for (int i : Int)
+			stream.write(i);
 	}
 	
 	@Override

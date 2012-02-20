@@ -19,6 +19,10 @@ public abstract class TAG {
 	public abstract Object getData();
 	
 	public abstract byte getID();
+	
+	public String getName() {
+		return name;
+	}
 
 	public static TAG createTag(byte type, String name) {
 		switch(type) {
@@ -33,6 +37,7 @@ public abstract class TAG {
 			case 0x08: return new TAG_STRING(name); 
 			case 0x09: return new TAG_LIST(name); 
 			case 0x0A: return new TAG_COMPOUND(name); 
+			case 0x0B: return new TAG_INT_ARRAY(name);
 			default: return new TAG_END();
 		}
 	}
